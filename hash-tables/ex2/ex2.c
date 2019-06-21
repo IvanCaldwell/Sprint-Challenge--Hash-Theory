@@ -22,6 +22,7 @@ char **reconstruct_trip(Ticket **tickets, int length){
     // Get the next location
     current_location = hash_table_retrieve(ht, current_location);
   }
+  destroy_hash_table(ht);
   return route;
 }
 
