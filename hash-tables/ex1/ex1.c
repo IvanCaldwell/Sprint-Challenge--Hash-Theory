@@ -10,9 +10,9 @@ Answer *get_indices_of_item_weights(int *weights, int length, int limit)
   /* YOUR CODE HERE */
   for (int i = 0; i < length; i++) {
     // Calculate the weight number needed to equal limit
-    int subtrahend = hash_table_retrieve(ht, limit - weights[i]);
+    int difference = hash_table_retrieve(ht, limit - weights[i]);
     // Check if if key is in the hash table
-    if (subtrahend == -1) {
+    if (difference == -1) {
       // If key is not in the hash table, add it
       hash_table_insert(ht, weights[i], i);
     } else {
@@ -20,7 +20,7 @@ Answer *get_indices_of_item_weights(int *weights, int length, int limit)
       // Create an Answer struct and set their properties
       Answer *result = malloc(sizeof(Answer));
       result->index_1 = i;
-      result->index_2 = subtrahend;
+      result->index_2 = difference;
       destroy_hash_table(ht);
       return result;
     }
