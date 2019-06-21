@@ -8,12 +8,29 @@ Answer *get_indices_of_item_weights(int *weights, int length, int limit)
   HashTable *ht = create_hash_table(16);
 
   /* YOUR CODE HERE */
-
+  for (int i = 0; i < length; i++) {
+    // Calculate the weight number needed to equal limit
+    int difference = hash_table_retrieve(ht, limit - weights[i]);
+    // Check if if key is in the hash table
+    if (difference == -1) {
+      // If key is not in the hash table, add it
+      hash_table_insert(ht, weights[i], i);
+    } else {
+      // Found a solution - early return
+      // Create an Answer struct and set their properties
+      Answer *result = malloc(sizeof(Answer));
+      result->index_1 = i;
+      result->index_2 = difference;
+      destroy_hash_table(ht);
+      return result;
+    }
+  }
+  // Didn't find a solution return NULL
+  destroy_hash_table(ht);
   return NULL;
 }
 
-void print_answer(Answer *answer)
-{
+void print_answer(Answer *answer){
   if (answer != NULL) {
     printf("%d %d\n", answer->index_1, answer->index_2);
   } else {
